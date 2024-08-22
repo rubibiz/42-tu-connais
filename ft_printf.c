@@ -6,7 +6,7 @@
 /*   By: tonio <tonio@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 15:59:32 by amoty             #+#    #+#             */
-/*   Updated: 2024/08/22 21:15:12 by tonio            ###   ########.fr       */
+/*   Updated: 2024/08/22 21:24:16 by tonio            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int ft_printf(const char *format, ...)
 
 void    write_arg(const char ch, va_list args)
 {
-        if (ch == 'c')
-        	func_c(va_arg(args, int));
+	if (ch == 'c')
+    	func_c(va_arg(args, int));
 	if (ch == 's')
 		func_s(va_arg(args, char *));
 	if (ch == 'p')
@@ -55,7 +55,9 @@ void    write_arg(const char ch, va_list args)
 		func_x(va_arg(args, unsigned int));
 	if (ch == 'X')
 		func_X(va_arg(args, unsigned int));
-        return ;
+	if (ch == '%')
+		write(1, '%', 1); 
+    return ;
 }
 
 int	main()

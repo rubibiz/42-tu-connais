@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   part1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amoty <amoty@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tonio <tonio@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 17:45:56 by amoty             #+#    #+#             */
-/*   Updated: 2024/08/20 16:39:08 by amoty            ###   ########.fr       */
+/*   Updated: 2024/08/22 21:15:13 by tonio            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,178 @@ void	func_p(void *ptr)
 		buffer[i++] = '0';
 	buffer[i] = '\0';
 	write(1, buffer, i);
+}
+
+void	func_d(int i)
+{
+	int	j;
+	char *str;
+
+	j = 0;
+	str = ft_itoa(i);
+	while(str[j])
+	{
+		write(1, &str[j], 1);
+		j++;
+	}
+	return ;
+}
+
+void	func_i(int i)
+{
+	int	j;
+	char *str;
+
+	j = 0;
+	str = ft_itoa(i);
+	while(str[j])
+	{
+		write(1, &str[j], 1);
+		j++;
+	}
+	return ;
+}
+static size_t	count_size(unsigned int nb)
+{
+	size_t	size;
+
+	size = 0;
+	if (nb == 0)
+		return (1);
+	while (nb)
+	{
+		nb = nb / 10;
+		size++;
+	}
+	return (size);
+}
+
+char	*printf_itoa(unsigned int n)
+{
+	size_t	size;
+	char	*str;
+
+	size = count_size(n);
+	str = (char *) malloc(sizeof(char) * (size + 1));
+	if (str == NULL)
+		return (NULL);
+	str[size] = '\0';
+	while (size > 0)
+	{
+		str[size - 1] = n % 10 + '0';
+		n = n / 10;
+		size--;
+	}
+	return (str);
+}
+void func_u(unsigned int i)
+{
+	unsigned int j;
+    char *str;
+
+    j = 0;
+    str = printf_itoa(i); 
+    if (str == NULL) {
+        return;
+    }
+    
+    while (str[j]) {
+        write(1, &str[j], 1);
+        j++;
+    }
+
+    free(str);
+}
+static size_t hex_size(unsigned int n) 
+{
+    size_t size ;
+
+	size = 0;
+    if (n == 0) return 1;
+    while (n) {
+        n /= 16;
+        size++;
+    }
+    return (size);
+}
+
+char *my_itoa_hex(unsigned int n) 
+{
+    size_t	size; 
+	char	*str;
+	const char	*hex_chars;
+
+	size = hex_size(n);
+    str = (char *)malloc(sizeof(char) * (size + 1));
+    if (str == NULL) 
+		return (NULL);  
+    str[size] = '\0';
+    if (n == 0) 
+	{
+        str[0] = '0';
+        return (str);
+    }
+	hex_chars= "0123456789abcdef";
+    while (n > 0) 
+	{
+        str[--size] = hex_chars[n % 16];
+        n /= 16;
+    } 
+    return (str);
+}
+
+void	func_x(unsigned int i)
+{
+	char	*str;
+	unsigned int	j;
+
+	j = 0;
+	str = my_itoa_hex(i);
+	while (str[j])
+	{
+		write(1, &str[j], 1);
+		j++;
+	}
+	free(str);
+	return ;
+}
+char *my_itoa_hexUP(unsigned int n) 
+{
+    size_t	size; 
+	char	*str;
+	const char	*hex_chars;
+
+	size = hex_size(n);
+    str = (char *)malloc(sizeof(char) * (size + 1));
+    if (str == NULL) 
+		return (NULL);  
+    str[size] = '\0';
+    if (n == 0) 
+	{
+        str[0] = '0';
+        return (str);
+    }
+	hex_chars= "0123456789ABCDEF";
+    while (n > 0) 
+	{
+        str[--size] = hex_chars[n % 16];
+        n /= 16;
+    } 
+    return (str);
+}
+
+void	func_X(unsigned int i)
+{
+	char	*str;
+	unsigned int	j;
+
+	j = 0;
+	str = my_itoa_hexUP(i);
+	while (str[j])
+	{
+		write(1, &str[j], 1);
+		j++;
+	}
+	free(str);
+	return ;
 }
